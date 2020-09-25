@@ -1,0 +1,33 @@
+<?php
+use \Symfony\Component\HttpFoundation\RedirectResponse;
+
+function getProductDetail($node){
+    $result  = new \stdClass();
+    $result->title = $node->getTitle();
+    $result->shortText = $node->get('field_short_text')->value;
+    $result->longText = $node->get('body')->value;
+
+    $photos = $node->get('field_photos')->getValue();
+    $photoIds = [];
+    foreach($photos as $photo) {
+        $photoIds[] = $photo['target_id'];
+    }
+    $photoFiles = \Drupal\file\Entity\File::loadMultiple($photoIds);
+    $photoUrls = [];
+    foreach ($photoFiles as $file) {
+        $photoUrls[] = $file->url();
+    }
+    $result->photos = $photoUrls;
+
+    $result->slidingOption = $node->get('field_sliding_option')->value;
+    return $result;
+}
+
+/**
+ * Implements hook_preprocess_page() for block templates.
+ */
+function my_theme_preprocess_node(&$vars)  {
+    $productDetail = getProductDetail($vars['node']);
+    $vars['productDetail'] = json_encode($productDetail);
+}
+

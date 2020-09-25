@@ -1,0 +1,24 @@
+global:
+  version: 1.x
+  css:
+    theme:
+      node_modules/vuetify/dist/vuetify.min.css: {}
+      node_modules/slick-carousel/slick/slick.css: {}
+      node_modules/slick-carousel/slick/slick-theme.css: {}
+      css/style.css: {}
+
+  dependencies:
+    - core/jquery
+    - core/jquery.ui.progressbar
+    - core/drupal.ajax
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery.once
+
+  js:
+    node_modules/vue/dist/vue.js: {}
+    node_modules/vuetify/dist/vuetify.js: {}
+    node_modules/moment/min/moment.min.js: {}
+    node_modules/slick-carousel/slick/slick.js: {}
+    js/build.js: {}
+
